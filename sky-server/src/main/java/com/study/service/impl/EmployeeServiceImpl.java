@@ -47,6 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setCreateUser(10L);
         employee.setUpdateUser(10L);
 
+        employeeMapper.insert(employee);
         return null;
     }
 }
