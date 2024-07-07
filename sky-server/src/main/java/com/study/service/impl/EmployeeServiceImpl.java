@@ -4,14 +4,16 @@ import com.study.constant.PasswordConstant;
 import com.study.constant.StatusConstant;
 import com.study.dto.EmployeeDTO;
 import com.study.dto.EmployeeLoginDTO;
+import com.study.dto.EmployeePageQueryDTO;
 import com.study.entity.Employee;
 import com.study.mapper.EmployeeMapper;
+import com.study.result.PageResult;
 import com.study.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-
+import com.github.pagehelper.PageHelper;
 import java.time.LocalDateTime;
 
 @Service
@@ -48,6 +50,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(10L);
 
         employeeMapper.insert(employee);
+        return null;
+    }
+
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO){
+
+        // select * from employee limit 0,10
+        PageHelper.startPage(employeePageQueryDTO);
+//        Page .starPage(employeePageQueryDTO.getPage())
         return null;
     }
 }
