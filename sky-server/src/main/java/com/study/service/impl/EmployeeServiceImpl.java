@@ -1,5 +1,6 @@
 package com.study.service.impl;
 
+import com.github.pagehelper.Page;
 import com.study.constant.PasswordConstant;
 import com.study.constant.StatusConstant;
 import com.study.dto.EmployeeDTO;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import com.github.pagehelper.PageHelper;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -57,8 +59,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO){
 
         // select * from employee limit 0,10
-        PageHelper.startPage(employeePageQueryDTO);
-//        Page .starPage(employeePageQueryDTO.getPage())
-        return null;
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+        long total = page.getTotal();
+        List<Employee> records = page.getResult();
+        return new PageResult(total,records);
     }
 }

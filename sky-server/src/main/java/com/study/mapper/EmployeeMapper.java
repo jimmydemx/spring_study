@@ -1,5 +1,7 @@
 package com.study.mapper;
 
+import com.github.pagehelper.Page;
+import com.study.dto.EmployeePageQueryDTO;
 import com.study.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +22,11 @@ public interface EmployeeMapper {
             + "values" +
             "(#{name},#{username},#{password},#{phone},#{sex},#{idNumber},#{createTime},#{updateTime},#{createUser},#{updateUser},#{status})")
     void insert(Employee employee);
+
+
+    /**
+     *
+     */
+    Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
 }
