@@ -1,7 +1,10 @@
 package com.study.controller.admin;
 import com.study.dto.EmployeeDTO;
 
+import com.study.dto.EmployeeLoginDTO;
 import com.study.dto.EmployeePageQueryDTO;
+import com.study.dto.EmployeeStatusDTO;
+import com.study.entity.Employee;
 import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.EmployeeService;
@@ -22,6 +25,13 @@ public class EmployeeController {
     @GetMapping("/test")
     public String test(){
         return "test returned";
+    }
+
+
+    @PostMapping("/login")
+    @ApiOperation("员工登录")
+    public Result login(){
+        return null;
     }
 
     @PostMapping("/add")
@@ -45,5 +55,30 @@ public class EmployeeController {
         log.info("员工分页查询, 参数为: {}",employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用用户账号")
+    public Result<String>  toggleStatus(@PathVariable Integer status, Long id){
+       log.info("设置启用禁用用户账号：{},{}", status,id);
+       String result=  employeeService.toggleStatus(status,id);
+       return Result.success(result);
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("按照员工ID搜索")
+    public  Result<Employee> getById(@PathVariable Long id){
+        log.info("按照员工ID,{}",id);
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    @PutMapping("")
+    @ApiOperation("编译员工信息")
+    public Result  updateEmployee(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编译员工信息,{}",employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 }

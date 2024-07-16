@@ -6,6 +6,7 @@ import com.study.constant.StatusConstant;
 import com.study.dto.EmployeeDTO;
 import com.study.dto.EmployeeLoginDTO;
 import com.study.dto.EmployeePageQueryDTO;
+import com.study.dto.EmployeeStatusDTO;
 import com.study.entity.Employee;
 import com.study.mapper.EmployeeMapper;
 import com.study.result.PageResult;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import com.github.pagehelper.PageHelper;
+
+import javax.swing.text.Utilities;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -64,5 +67,32 @@ public class EmployeeServiceImpl implements EmployeeService {
         long total = page.getTotal();
         List<Employee> records = page.getResult();
         return new PageResult(total,records);
+    }
+
+    @Override
+    public String toggleStatus(Integer status,Long id){
+//        Employee employee = new Employee();
+//        employee.setStatus(status);
+//        employee.setId(id);
+
+        // Emplyee 设置了@Builder可以直接使用builder构造方法
+        Employee employee = Employee.builder().status(status).id(id).build();
+        employeeMapper.update(employee);
+        return "";
+    }
+
+
+    @Override
+    public Employee getById(Long id){
+        Employee employee= employeeMapper.getById(id);
+        employee.setPassword("****");
+        return employee;
+    }
+
+    @Override
+    public void update(EmployeeDTO employeeDTO){
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employeeMapper.update(employee);
     }
 }
