@@ -27,6 +27,13 @@ public class EmployeeController {
         return "test returned";
     }
 
+
+    @PostMapping("/login")
+    @ApiOperation("员工登录")
+    public Result login(){
+        return null;
+    }
+
     @PostMapping("/add")
     @ApiOperation("新增员工")
     public Result save(@RequestBody EmployeeDTO employeeDTO){
