@@ -13,6 +13,17 @@ public class Category {
 
     private Integer type;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime createTime;
+
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
+
+    private Long createUser;
+
+    private Long updateUser;
+
+
     public Long getId() {
         return id;
     }
@@ -77,15 +88,6 @@ public class Category {
         this.updateUser = updateUser;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime createTime;
-
-    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
-
-    private Long createUser;
-
-    private Long updateUser;
 
 
 }

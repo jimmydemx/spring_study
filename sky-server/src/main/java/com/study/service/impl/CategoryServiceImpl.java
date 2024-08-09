@@ -16,6 +16,21 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryMapper categoryMapper;
 
     @Override
+    public void update(Category category)  {
+        Long id = category.getId();
+        Category cat =new Category();
+        cat.setId(id);
+        ArrayList<Category> byProperty = categoryMapper.getByProperty(cat);
+        System.out.println("Category category =new Category();"+byProperty);
+        if(byProperty.isEmpty()){
+            throw new RuntimeException("Can't find category to be updated");
+        }
+        categoryMapper.update(category);
+
+
+    }
+
+    @Override
     public ArrayList<Category> getListByType(Integer type){
         Category category =new Category();
          category.setType(type);

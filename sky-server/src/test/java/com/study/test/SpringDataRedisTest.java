@@ -3,6 +3,7 @@ package com.study.test;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.*;
 
 import javax.annotation.Resource;
@@ -10,7 +11,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
+// comment @SpringBootTest
+//@SpringBootTest
 public class SpringDataRedisTest {
 
 
@@ -97,9 +99,44 @@ public class SpringDataRedisTest {
 
         setOperations.remove("set1","a","b");
 
-
     }
 
 
+    /**
+     * 有序集合
+     */
+    @Test
+    public void testZset(){
+        // zadd zrange zincrby zrem
+        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+        zSetOperations.add("zset1","a",10);
+        zSetOperations.add("zset1","b",12);
+        zSetOperations.add("zset1","c",9);
+
+        Set zset1 = zSetOperations.range("zset1", 0, -1);
+
+        System.out.println(zset1);
+
+        zSetOperations.incrementScore("zset1","c",10);
+        zSetOperations.remove("zset1","a","b");
+    }
+
+
+    @Test
+    public void testCommon(){
+        // keys existes type del
+
+        Set keys = redisTemplate.keys("*");
+        System.out.println(keys);
+
+        Boolean name = redisTemplate.hasKey("name");
+        Boolean set1 = redisTemplate.hasKey("set1");
+        for (Object key:keys){
+            DataType type = redisTemplate.type(key);
+            System.out.println(type.name());
+            redisTemplate.delete("mylist");
+        }
+
+    }
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.study.mapper.CategoryMapper">
-    <select id="getByProperty" resultType="com.study.entity.Category">
+    <select id="getByProperty" parameterType="com.study.entity.Category" resultType="com.study.entity.Category">
             select * from category
             <where>
                 <if test="name!= null">name =#{name}</if>
@@ -15,4 +15,20 @@
                 <if test="updateUser!= null">update_user =#{updateUser}</if>
             </where>
     </select>
+
+
+    <update id="update" parameterType="com.study.entity.Category">
+        update category
+        <set>
+            <if test="name!= null">name =#{name},</if>
+            <if test="id!= null">id =#{id},</if>
+            <if test="sort!= null">sort =#{sort},</if>
+            <if test="type!= null">type =#{type},</if>
+            <if test="createTime!= null">create_time =#{createTime},</if>
+            <if test="createUser!= null">create_user =#{creatUser},</if>
+            <if test="updateTime!= null">update_time =#{updateTime},</if>
+            <if test="updateUser!= null">update_user =#{updateUser},</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

@@ -8,5 +8,7 @@ import java.util.ArrayList;
 
 public interface CategoryService {
 
+    void update(Category category);
+
     ArrayList<Category> getListByType(Integer type);
 }

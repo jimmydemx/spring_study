@@ -9,6 +9,13 @@ import java.util.List;
 
 public class DishDTO implements Serializable {
     private Long id;
+    private Long categoryId;
+    private BigDecimal price;
+    private String image;
+    private String description;
+    private Integer status;
+    private List<DishFlavor> flavors = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -66,11 +73,5 @@ public class DishDTO implements Serializable {
         this.flavors = flavors;
     }
 
-    private Long categoryId;
-    private BigDecimal price;
-    private String image;
-    private String description;
-    private Integer status;
-    private List<DishFlavor> flavors = new ArrayList<>();
 
 }
